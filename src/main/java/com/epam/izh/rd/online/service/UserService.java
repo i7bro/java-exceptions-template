@@ -30,11 +30,15 @@ public class UserService implements IUserService {
      * @param user - даныне регистрирующегося пользователя
      */
     @Override
-    public User register(User user) {
+    public User register(User user){
+        if (user.getLogin() == null || user.getLogin().equals("") ||
+            user.getPassword() == null || user.getPassword().equals("")) {
+            throw new IllegalArgumentException("Ошибка в заполнении полей");
+        }
 
-        //
-        // Здесь необходимо реализовать перечисленные выше проверки
-        //
+        if (userRepository.findByLogin(user.getLogin()) == null) {
+
+        }
 
         // Если все проверки успешно пройдены, сохраняем пользователя в базу
         return userRepository.save(user);
@@ -69,3 +73,5 @@ public class UserService implements IUserService {
     }
 
 }
+
+
